@@ -3,7 +3,6 @@ package cycling;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.LinkedList;
 
 
 /**
@@ -11,11 +10,6 @@ import java.util.LinkedList;
  * of the CyclingPortalInterface interface.
  */
 public class CyclingPortal implements CyclingPortalInterface {
-
-	LinkedList<Object> teamsLinkedList = new LinkedList<Object>();
-	LinkedList<String> riderLinkedList = new LinkedList<String>();
-	LinkedList<String> raceLinkedList = new LinkedList<String>();
-	LinkedList<String> stageLinkedList = new LinkedList<String>();
 
 	@Override
 	public int[] getRaceIds() {
@@ -109,15 +103,34 @@ public class CyclingPortal implements CyclingPortalInterface {
 	// Creates a team with name and description.
 	@Override
 	public int createTeam(String name, String description) throws IllegalNameException, InvalidNameException {
-		// Creates new instance of a team
-		Team newTeam = new Team(name, description);
-		// Sets team name and description using parameters
-		newTeam.setName(name);
-		newTeam.setDescription(description);
-		// Adds team to team 
-		teamsLinkedList.addLast(newTeam);
-		return 0;
+
+		boolean validTeamName = true;
+		boolean legalTeamName = true;
+
+		for(int i = 0;i < Team.listOfTeams.size(); i++) {
+			if (Team.listOfTeams.get(i).getTeamName() == name) {
+				legalTeamName = false;
+			}
+			else if((name == null) || (name == "") || (name.length() > 30) || (name.contains(" "))) {
+				validTeamName = false;
+			}
+            else {
+            }
+        }
+
+		if(validTeamName == false) {
+			throw new InvalidNameException();
+		}
+		else if(legalTeamName == false) {
+			throw new IllegalNameException();
+		}
+		else {
+			Team.listOfTeams.add(new Team(name, description));
+			return Team.listOfTeams.get(Team.listOfTeams.size() - 1).getTeamID() + 1;
+		}
+		
 	}
+
 
 	@Override
 	public void removeTeam(int teamId) throws IDNotRecognisedException {
