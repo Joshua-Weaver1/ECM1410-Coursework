@@ -1,44 +1,49 @@
-/**
- * We've created a package named cycling by using the
- * keyword 'package' which creates a new package to avoid
- * any name conflicts.
- */
 package cycling;
-
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 /**
  * Here we have created a priavte class named RaceManagement
  * which contains attributes and set methods and get methods
  */
 public class Race {
+    // Instance variables
     private int raceID;
     private String raceName;
     private String description;
-    private double length;
-    private LocalDateTime startTime;
-    private StageType type;
 
-    private void setRaceID(int raceID) {
-        this.raceID = raceID;
+    // Static variable
+    public static ArrayList<Race> listOfRaces = new ArrayList<>();
+
+    public int getRaceID() {
+        return this.raceID;
     }
 
-    private void setRaceName(String raceName) {
+    public String getRaceName() {
+        return this.raceName;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public Race() {
+        this.raceID = 0;
+        this.raceName = "Empty";
+        this.description = "Empty";
+    }
+
+    public Race(String raceName, String description) {
         this.raceName = raceName;
-    }
-
-    private void setDescription(String description) {
         this.description = description;
-    }
 
-    private void setLength(double length) {
-        this.length = length;
-    }
-
-    private void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
-
-    private void setType(StageType type) {
-        this.type = type;
+        if (listOfRaces.isEmpty()){
+            this.raceID = 1;
+        }
+        else{
+            /** 
+             *This line of code gets the ArrayList named "listOfRaces" and allocates the new
+             *race an ID based off the last used raceID by adding one to the ID.
+             */ 
+            this.raceID = listOfRaces.get(listOfRaces.size() - 1).getRaceID() + 1;
+        }
     }
 }

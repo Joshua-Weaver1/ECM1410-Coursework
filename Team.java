@@ -8,6 +8,7 @@ public class Team {
     private String teamName;
     private String teamDescription;
     private int teamID;
+    
 
     /** 
     This line of code creates the ArrayList which has the name "listOfTeams" which 
