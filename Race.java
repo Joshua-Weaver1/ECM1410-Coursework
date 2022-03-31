@@ -1,49 +1,56 @@
 package cycling;
+
 import java.util.ArrayList;
+
 /**
- * Here we have created a priavte class named RaceManagement
- * which contains attributes and set methods and get methods
+ * A public class named Race which contains attributes and relevant methods
+ * for handling and creating races.
  */
 public class Race {
-    // Instance variables
-    private int raceID;
-    private String raceName;
-    private String description;
+  // Instance variables
+  private int raceID;
+  private String raceName;
+  private String description;
 
-    // Static variable
-    public static ArrayList<Race> listOfRaces = new ArrayList<>();
+  // Static variables
+  public static ArrayList<Race> listOfRaces = new ArrayList<>();
 
-    public int getRaceID() {
-        return this.raceID;
+  //Getters
+  public int getRaceID() {
+    return this.raceID;
+  }
+
+  public String getRaceName() {
+    return this.raceName;
+  }
+
+  public String getDescription() {
+    return this.description;
+  }
+
+  /**
+   * A generic constructor for a race object.
+   */
+  public Race() {
+    this.raceID = 0;
+    this.raceName = "Empty";
+    this.description = "Empty";
+  }
+
+  /**
+   * A constructor for a race object.
+   * @param raceName Defines the name for a race object.
+   * @param description Defines the description for a race object.
+   */
+  public Race(String raceName, String description) {
+    this.raceName = raceName;
+    this.description = description;
+
+    if (listOfRaces.isEmpty()) {
+      this.raceID = 1;
+    } else {
+      // Set ID 1 more than last race
+      this.raceID = listOfRaces.get(listOfRaces.size() - 1).getRaceID() + 1;
     }
-
-    public String getRaceName() {
-        return this.raceName;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public Race() {
-        this.raceID = 0;
-        this.raceName = "Empty";
-        this.description = "Empty";
-    }
-
-    public Race(String raceName, String description) {
-        this.raceName = raceName;
-        this.description = description;
-
-        if (listOfRaces.isEmpty()){
-            this.raceID = 1;
-        }
-        else{
-            /** 
-             *This line of code gets the ArrayList named "listOfRaces" and allocates the new
-             *race an ID based off the last used raceID by adding one to the ID.
-             */ 
-            this.raceID = listOfRaces.get(listOfRaces.size() - 1).getRaceID() + 1;
-        }
-    }
+  }
 }
